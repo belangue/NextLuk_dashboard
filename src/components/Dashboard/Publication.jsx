@@ -46,9 +46,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -60,9 +60,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -74,9 +74,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -88,9 +88,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -102,9 +102,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -116,9 +116,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -130,9 +130,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -144,9 +144,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -158,9 +158,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -172,9 +172,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -186,9 +186,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>
@@ -200,9 +200,9 @@ export default function Publication() {
                                     <h4>Bohemian braids</h4>
                                     <p style={{fontWeight:'bold'}}>600$</p>
                                 </div></a>
-                                <div class="pswp-caption-content">
-                                    <h4>Bohemian braids</h4>
-                                    <p style={{fontWeight:'bold'}}>600$</p>
+                                <div style={{padding:'10px', display:'flex',justifyContent:'flex-end',gap:'3px'}}class="pswp-caption-content">
+                                    <button style={{borderRadius:'10px', backgroundColor:'blue',height:'24px',width:'60px'}}>update</button>
+                                    <button style={{borderRadius:'10px', backgroundColor:'red',height:'24px',width:'60px'}}>delete</button>
                                 </div>
                             </div>
                         </div>

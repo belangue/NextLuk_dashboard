@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
+import WebcamCapture from '../WebcamCapture';
+const Data = [
+    { id: 1, SalonName: 'John', location: 'Yaounde', HairdresserNumber:'4', HairdresserDetail: 'Admin', status: 'Pending' },
+    { id: 2, SalonName: 'Jane', location: 'S', HairdresserNumber: '6', HairdresserDetail: 'User', status: 'Inactive' },
+    { id: 3, SalonName: 'Fina', location: 'dora', HairdresserNumber:'3', HairdresserDetail: 'user', status: 'Suspended' },
+    { id: 4, SalonName: 'John', location: 'Doe', HairdresserNumber:'6', HairdresserDetail: 'Admin', status: 'Active' },
+    { id: 5, SalonName: 'William', location: 'Brown', HairdresserNumber: '7', HairdresserDetail: 'Admin', status: 'Active' },
+    { id: 6, SalonName: 'Olivia', location: 'Jones', HairdresserNumber: '5', HairdresserDetail: 'Premium', status: 'Active' },
+    { id: 7, SalonName: 'France', location: 'Wilson', HairdresserNumber:'3',  HairdresserDetail: 'Basic', status: 'Inactive' },
+    { id: 8, SalonName: 'Noah', location: 'Miller', HairdresserNumber:'8', HairdresserDetail: 'Premium', status: 'Active' },
+    { id: 9, SalonName: 'Ava', location: 'Taylor', HairdresserNumber: '4', HairdresserDetail: 'Basic', status: 'Inactive' },
+    { id: 10, SalonName: 'Isabella', location: 'Moore', HairdresserNumber: '2', HairdresserDetail: 'Admin', status: 'Active' },
+];
+const statusClassName = {
+    "Inactive": "badge badge-light-danger",
+    "Suspended": "badge badge-light-primary",
+    "Active": "badge badge-light-success",
+    "Pending": "badge badge-light-info",
+}
 
 export default function Salonadmin() {
-    
+    const [userList, setuserList] = useState(Data)
     return (
         <div class="container-fluid table-space basic_table">
             <div class="container-fluid">
@@ -43,175 +62,48 @@ export default function Salonadmin() {
                         </div>
 
                     </div>
+                    <div className="App">
+                        <h1>Virtual Hairstyle Try-On</h1>
+                        <WebcamCapture />
+                    </div>
                     <div class="card-body file-manager">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr class="b-b-primary">
                                         <th scope="col">Id</th>
-                                        <th scope="col">First Name</th>
-                                        <th scope="col">Last Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">AccountType</th>
+                                        <th scope="col">SalonName</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">HairdresserNumber</th>
+                                        <th scope="col">HairdresserDetail</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="b-b-tertiary">
-                                        <th scope="row">1</th>
-                                        <td> <img class="img-30 me-2" src={require("../../assets/images/avatar/1.jpg")} alt="profile" />Ram Jacob</td>
-                                        <td>Wolfe</td>
-                                        <td>RamJacob@twitter</td>
-                                        <td>Hairdresser</td>
-                                        <td> <span class="badge badge-light-danger">Suspended</span></td>
-                                        <td>
-                                        <div style={{position:'relative',display:'inline-block'}}>
-                                            <div style={{cursor:'pointer',fontSize:'24px',padding:'0 5px'}}>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                            </div>
-                                            <div style={{display:'none', position:'absolute', top:'100%',right:'0',backgroundColor:'#fff',border:'1px solid #ddd',boxShadow:'0 2px 5px rgba(0 0 0 0.1)',listStyleType:'none',margin:'0', padding:'8px 0', minWidth:'120px',zIndex:'1' }}>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Activate</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Suspended</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Reactivate</div>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="b-b-success">
-                                        <th scope="row">2</th>
-                                        <td> <img class="img-30 me-2" src={require("../../assets/images/avatar/2.jpg")} alt="profile" />John Deo</td>
-                                        <td>Gummer</td>
-                                        <td>JohnDeo@twitter	</td>
-                                        <td>Hairdresser</td>
-                                        <td> <span class="badge badge-light-primary">Pending</span></td>
-                                        <td>
-                                        <div style={{position:'relative',display:'inline-block'}}>
-                                            <div style={{cursor:'pointer',fontSize:'24px',padding:'0 5px'}}>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                            </div>
-                                            <div style={{display:'none', position:'absolute', top:'100%',right:'0',backgroundColor:'#fff',border:'1px solid #ddd',boxShadow:'0 2px 5px rgba(0 0 0 0.1)',listStyleType:'none',margin:'0', padding:'8px 0', minWidth:'120px',zIndex:'1' }}>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Activate</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Suspended</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Reactivate</div>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="b-b-warning">
-                                        <th scope="row">3</th>
-                                        <td> <img class="img-30 me-2" src={require("../../assets/images/avatar/3.jpg")} alt="profile" />Elana John</td>
-                                        <td>Cazale	</td>
-                                        <td>ElanaJohn@twitter</td>
-                                        <td>Hairdresser</td>
-                                        <td> <span class="badge badge-light-danger">Suspended</span></td>
-                                        <td>
-                                        <div style={{position:'relative',display:'inline-block'}}>
-                                            <div style={{cursor:'pointer',fontSize:'24px',padding:'0 5px'}}>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                            </div>
-                                            <div style={{display:'none', position:'absolute', top:'100%',right:'0',backgroundColor:'#fff',border:'1px solid #ddd',boxShadow:'0 2px 5px rgba(0 0 0 0.1)',listStyleType:'none',margin:'0', padding:'8px 0', minWidth:'120px',zIndex:'1' }}>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Activate</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Suspended</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Reactivate</div>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="b-b-info">
-                                        <th scope="row">4</th>
-                                        <td> <img class="img-30 me-2" src={require("../../assets/images/avatar/4.jpg")} alt="" />Meryl Streep</td>
-                                        <td>Roberts</td>
-                                        <td>MerylStreep@twitter</td>
-                                        <td>Hairdresser</td>
-                                        <td> <span class="badge badge-light-success">Active</span></td>
-                                        <td>
-                                        <div style={{position:'relative',display:'inline-block'}}>
-                                            <div style={{cursor:'pointer',fontSize:'24px',padding:'0 5px'}}>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                            </div>
-                                            <div style={{display:'none', position:'absolute', top:'100%',right:'0',backgroundColor:'#fff',border:'1px solid #ddd',boxShadow:'0 2px 5px rgba(0 0 0 0.1)',listStyleType:'none',margin:'0', padding:'8px 0', minWidth:'120px',zIndex:'1' }}>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Activate</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Suspended</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Reactivate</div>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="b-b-danger">
-                                        <th scope="row">5</th>
-                                        <td> <img class="img-30 me-2" src={require("../../assets/images/avatar/5.jpg")} alt="" />Emma Stone</td>
-                                        <td>Stone</td>
-                                        <td>EmmaStone@twitter	</td>
-                                        <td>Hairdresser</td>
-                                        <td> <span class="badge badge-light-primary">Pending</span></td>
-                                        <td>
-                                        <div style={{position:'relative',display:'inline-block'}}>
-                                            <div style={{cursor:'pointer',fontSize:'24px',padding:'0 5px'}}>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                            </div>
-                                            <div style={{display:'none', position:'absolute', top:'100%',right:'0',backgroundColor:'#fff',border:'1px solid #ddd',boxShadow:'0 2px 5px rgba(0 0 0 0.1)',listStyleType:'none',margin:'0', padding:'8px 0', minWidth:'120px',zIndex:'1' }}>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Activate</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Suspended</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Reactivate</div>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="b-b-secondary">
-                                        <th scope="row">6</th>
-                                        <td> <img class="img-30 me-2" src={require("../../assets/images/avatar/6.jpg")} alt="" />Eliana Jons</td>
-                                        <td>Jons</td>
-                                        <td>ElianaJons@twitter		</td>
-                                        <td>Admin</td>
-                                        <td> <span class="badge badge-light-success">Active</span></td>
-                                        <td>
-                                        <div style={{position:'relative',display:'inline-block'}}>
-                                            <div style={{cursor:'pointer',fontSize:'24px',padding:'0 5px'}}>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                            </div>
-                                            <div style={{display:'none', position:'absolute', top:'100%',right:'0',backgroundColor:'#fff',border:'1px solid #ddd',boxShadow:'0 2px 5px rgba(0 0 0 0.1)',listStyleType:'none',margin:'0', padding:'8px 0', minWidth:'120px',zIndex:'1' }}>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Activate</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Suspended</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Reactivate</div>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">7</th>
-                                        <td> <img class="img-30 me-2" src={require("../../assets/images/avatar/7.jpg")} alt="" />Ram Jacob</td>
-                                        <td>Ottandy</td>
-                                        <td>ElianaJons@twitter		</td>
-                                        <td>Admin</td>
-                                        <td> <span class="badge badge-light-success">Active</span></td>
-                                        <td>
-                                        <div style={{position:'relative',display:'inline-block'}}>
-                                            <div style={{cursor:'pointer',fontSize:'24px',padding:'0 5px'}}>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                                <div style={{display:'inline-block',width:'5px',height:'5px',backgroundColor:'#333',borderRadius:'50%',margin:'0 2px'}}></div>
-                                            </div>
-                                            <div style={{display:'none', position:'absolute', top:'100%',right:'0',backgroundColor:'#fff',border:'1px solid #ddd',boxShadow:'0 2px 5px rgba(0 0 0 0.1)',listStyleType:'none',margin:'0', padding:'8px 0', minWidth:'120px',zIndex:'1' }}>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Activate</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Suspended</div>
-                                                <div style={{padding:'8px 16px', cursor:'pointer'}}>Reactivate</div>
-                                            </div>
-                                        </div>
-                                        </td>
-                                    </tr>
+                                    {userList.map((row) => (
+                                        <tr className='b-b-jojo' key={row.id}>
+                                            <th>{row.id}</th>
+                                            <td><img class="img-30 me-2" src={require(`../../assets/images/avatar/${row.id}.jpg`)} alt="profile" />{row.SalonName}</td>
+                                            <td>{row.location}</td>
+                                            <center><td>{row.HairdresserNumber}</td></center>
+                                            <td>
+                                            <div style={{fontSize:'50px',color:'pink', display:'flex', justifyContent:'center',marginRight:'40px'}}>
+                                                    <span style={{margin:2}}>.</span>
+                                                    <span style={{margin:2}}>.</span>
+                                                    <span style={{margin:2}}>.</span>
+                                                </div>
+                                            </td>
+                                            <td> <span class={statusClassName[row.status]}>{row.status}</span></td>
+                                            <td>
+                                                {/* <div class="text-center col-12 col-sm-6 col-md-12"> */}
+                                                <button class="btn m-1 btn-info btn-outline-info" type="button" data-bs-toggle="tooltip" title="btn btn-outline-info">Edit</button>
+                                                {/* </div> */}
+                                                <button class="btn m-1 btn-info btn-outline-info" type="button" data-bs-toggle="tooltip" title="btn btn-outline-info">Delete</button>
+                                                {/* </div> */}
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

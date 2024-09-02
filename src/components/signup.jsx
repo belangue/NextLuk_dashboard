@@ -15,12 +15,12 @@ export default function Signup() {
                             <div>
                                 <div>
                                     <div>
-                                        <a class="logo" href="index.html">
-                                            <img class="img-fluid for-light" src={require("../assets/images/logo/logo.png")}
-                                                alt="looginpage" />
-                                            <img class="img-fluid for-dark m-auto" src={require("../assets/images/logo/dark-logo.png")}
-                                                alt="logo" />
-                                        </a>
+                                    <a className="logo" href="index.html">
+                                        <img style={{width:'50px', height:'50px'}} className="img-fluid for-light" src={require("../assets/images/logo/logo.jpg")}
+                                            alt="looginpage" />
+                                        <img className="img-fluid for-dark m-auto" src={require("../assets/images/logo/dark-logo.png")}
+                                            alt="logo" />
+                                    </a>
                                     </div>
                                 </div>
                                 <div class="login-main">
@@ -66,15 +66,7 @@ export default function Signup() {
                                         <div class="login-social-title">
                                             <h6>Or Sign in with </h6>
                                         </div>
-                                        <div class="form-group">
-                                            <ul class="login-social">
-                                                <li><a href="https://www.linkedin.com/" target="_blank"><i class="icon-linkedin"></i></a></li>
-                                                <li><a href="https://twitter.com/" target="_blank"><i class="icon-twitter"></i></a></li>
-                                                <li><a href="https://www.facebook.com/" target="_blank"><i class="icon-facebook"></i></a></li>
-                                                <li><a href="https://www.instagram.com/" target="_blank"><i class="icon-instagram"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <p class="mt-4 mb-0 text-center">Already have an account?<a class="ms-2" href="login.html">Sign in</a>
+                                        <p class="mt-4 mb-0 text-center">Already have an account?<a class="ms-2" href="/login">Sign in</a>
                                         </p>
                                     </form>
                                 </div>

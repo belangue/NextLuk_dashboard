@@ -19,7 +19,6 @@ export default function Root() {
     return (
         <>
             <div id="appContainer">
-                {screenWidth}
                 <Outlet />
             </div>
         </>
