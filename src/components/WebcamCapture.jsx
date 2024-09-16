@@ -3,9 +3,9 @@ import Webcam from 'react-webcam';
 import * as faceapi from 'face-api.js';
 
 const hairstyles = [
-  '/images/hairstyle1.png',
-  '/images/hairstyle2.png',
-  '/images/hairstyle3.png',
+  '/images/image11.jpg',
+  '/images/image12.jpg',
+  '/images/image13.jpg',
   // ... more hairstyles
 ];
 
@@ -89,10 +89,10 @@ const WebcamCapture = () => {
           const faceWidth = rightSideOfFace.x - leftSideOfFace.x;
           const faceHeight = landmarks.positions[8].y - topOfHead.y;
 
-          const hairstyleWidth = faceWidth * 1.5;
-          const hairstyleHeight = faceHeight * 1.2;
+          const hairstyleWidth = faceWidth * 1.8;  // Increased width
+          const hairstyleHeight = faceHeight * 1.5;  // Increased height
           const hairstyleX = topOfHead.x - (hairstyleWidth - faceWidth) / 2;
-          const hairstyleY = topOfHead.y - hairstyleHeight / 4;
+          const hairstyleY = topOfHead.y - hairstyleHeight / 2;  // Moved up
 
           console.log('Drawing hairstyle:', {
             imageIndex: currentHairstyleIndex,
@@ -148,13 +148,13 @@ const WebcamCapture = () => {
 
   return (
     <div>
-      <div style={{ position: 'relative', width: '80%', height: '70%', margin: 'auto' }}>
+      <div style={{ position: 'relative', width: '500px', height: '500px', margin: 'auto' }}>
         <Webcam
           audio={false}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           onPlay={handleVideoOnPlay}
-          style={{ width: '500px', height: '500px', objectFit: 'cover' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
         <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} />
       </div>

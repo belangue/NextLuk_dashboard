@@ -19,11 +19,16 @@ import Finance from './components/Dashboard/finance'
 import displayWeb from './components/Dashboard/displayWeb'
 import schedule from './components/Dashboard/schedule'
 import WebcamCapture from './components/WebcamCapture';
+import Map from './components/Map';
+import HomePage from './components/HomePage';
 const Login = React.lazy(() => import('./components/login'));
 const Signup = React.lazy(() => import('./components/signup'));
 const Home = React.lazy(() => import('./components/Home'));
 const LandingPage = React.lazy(() => import('./components/landingPage'));
 const InfoPage = React.lazy(() => import('./components/InfoPage'));
+const InfoPageSalon = React.lazy(() => import('./components/InfoPageSalon'));
+const Institute = React.lazy(() => import('./components/Institute'));
+const FirstPage = React.lazy(() => import('./components/FirstPage'));
 const Test1 = React.lazy(() => import('./components/test1'));
 const FileManager = React.lazy(() => import('./components/Dashboard/appointment'));
 
@@ -93,6 +98,30 @@ const router = createBrowserRouter(
         // loader={signupLoader}
         // errorElement={<ErrorPage />}
         />
+        <Route path='InfoPageSalon'
+          element={
+            <Suspense fallback={<Loader />}>
+              <InfoPageSalon />
+            </Suspense>}
+        // loader={signupLoader}
+        // errorElement={<ErrorPage />}
+        />
+         <Route path='Institute'
+          element={
+            <Suspense fallback={<Loader />}>
+              <Institute />
+            </Suspense>}
+        // loader={signupLoader}
+        // errorElement={<ErrorPage />}
+        />
+         <Route path='HomePage'
+          element={
+            <Suspense fallback={<Loader />}>
+              <HomePage />
+            </Suspense>}
+        // loader={signupLoader}
+        // errorElement={<ErrorPage />}
+        />
         <Route path='Home'
           element={
             <Suspense fallback={<Loader />}>
@@ -104,7 +133,15 @@ const router = createBrowserRouter(
         <Route path='infoPage'
           element={
             <Suspense fallback={<Loader />}>
-              <infoPage />
+              <InfoPage />
+            </Suspense>}
+        // loader={signupLoader}
+        // errorElement={<ErrorPage />}
+        />
+         <Route path='FirstPage'
+          element={
+            <Suspense fallback={<Loader />}>
+              <FirstPage />
             </Suspense>}
         // loader={signupLoader}
         // errorElement={<ErrorPage />}
@@ -128,6 +165,13 @@ const router = createBrowserRouter(
           element={
             <Suspense fallback={<Loader />}>
               <WebcamCapture />
+            </Suspense>
+          }
+        />
+          <Route path='Map'
+          element={
+            <Suspense fallback={<Loader />}>
+              <Map />
             </Suspense>
           }
         />

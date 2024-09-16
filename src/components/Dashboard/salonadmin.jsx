@@ -1,115 +1,176 @@
-import React, { useState } from 'react'
-import WebcamCapture from '../WebcamCapture';
+import React, { useState } from 'react';
+
 const Data = [
     { id: 1, SalonName: 'John', location: 'Yaounde', HairdresserNumber:'4', HairdresserDetail: 'Admin', status: 'Pending' },
     { id: 2, SalonName: 'Jane', location: 'S', HairdresserNumber: '6', HairdresserDetail: 'User', status: 'Inactive' },
     { id: 3, SalonName: 'Fina', location: 'dora', HairdresserNumber:'3', HairdresserDetail: 'user', status: 'Suspended' },
     { id: 4, SalonName: 'John', location: 'Doe', HairdresserNumber:'6', HairdresserDetail: 'Admin', status: 'Active' },
     { id: 5, SalonName: 'William', location: 'Brown', HairdresserNumber: '7', HairdresserDetail: 'Admin', status: 'Active' },
-    { id: 6, SalonName: 'Olivia', location: 'Jones', HairdresserNumber: '5', HairdresserDetail: 'Premium', status: 'Active' },
-    { id: 7, SalonName: 'France', location: 'Wilson', HairdresserNumber:'3',  HairdresserDetail: 'Basic', status: 'Inactive' },
-    { id: 8, SalonName: 'Noah', location: 'Miller', HairdresserNumber:'8', HairdresserDetail: 'Premium', status: 'Active' },
-    { id: 9, SalonName: 'Ava', location: 'Taylor', HairdresserNumber: '4', HairdresserDetail: 'Basic', status: 'Inactive' },
-    { id: 10, SalonName: 'Isabella', location: 'Moore', HairdresserNumber: '2', HairdresserDetail: 'Admin', status: 'Active' },
+    // ... (rest of the data)
 ];
-const statusClassName = {
-    "Inactive": "badge badge-light-danger",
-    "Suspended": "badge badge-light-primary",
-    "Active": "badge badge-light-success",
-    "Pending": "badge badge-light-info",
-}
+
+const statusStyles = {
+    "Inactive": { backgroundColor: '#FEE2E2', color: '#991B1B' },
+    "Suspended": { backgroundColor: '#DBEAFE', color: '#1E40AF' },
+    "Active": { backgroundColor: '#D1FAE5', color: '#065F46' },
+    "Pending": { backgroundColor: '#FEF3C7', color: '#92400E' },
+};
 
 export default function Salonadmin() {
-    const [userList, setuserList] = useState(Data)
-    return (
-        <div class="container-fluid table-space basic_table">
-            <div class="container-fluid">
-                <div class="row page-title">
-                    <div class="col-sm-6">
-                        <h3>SalonAdmin</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="card">
-                    <div class="card-header d-md-block">
-                        <div class="d-md-flex d-sm-block align-items-center">
-                            <form class="search-form mb-0">
-                                <div class="input-group"><span class="input-group-text pe-0">
-                                    <svg class="search-bg svg-color">
-                                        <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Search"></use>
-                                    </svg></span>
-                                    <input class="form-control" type="text" placeholder="Search anything..." />
-                                </div>
-                            </form>
-                            <div class="flex-grow-1 text-end">
-                                <form class="d-inline-flex">
-                                    <button class="btn btn-primary plus-square">
-                                        <svg class="feather stroke-white ">
-                                            <use href="https://admin.pixelstrap.net/edmin/assets/svg/feather-icons/dist/feather-sprite.svg#plus-square"></use>
-                                        </svg>Add users
-                                    </button>
-                                    <div style={{ height: "0px", width: "0px", overflow: "hidden" }}>
-                                        <input id="upfile" type="file" onchange="sub(this)" />
-                                    </div>
-                                    <button class="btn btn-outline-primary ms-2 upload">
-                                        <svg class="feather stroke-primary">
-                                            <use href="https://admin.pixelstrap.net/edmin/assets/svg/feather-icons/dist/feather-sprite.svg#upload"></use>
-                                        </svg>Upload document
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+    const [userList, setUserList] = useState(Data);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+    const [isModalOpen2, setModalOpen2] = useState(false);
+    const [selectedHairdresser, setSelectedHairdresser] = useState(null);
 
-                    </div>
-                    <div className="App">
-                        <h1>Virtual Hairstyle Try-On</h1>
-                        <WebcamCapture />
-                    </div>
-                    <div class="card-body file-manager">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr class="b-b-primary">
-                                        <th scope="col">Id</th>
-                                        <th scope="col">SalonName</th>
-                                        <th scope="col">Location</th>
-                                        <th scope="col">HairdresserNumber</th>
-                                        <th scope="col">HairdresserDetail</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {userList.map((row) => (
-                                        <tr className='b-b-jojo' key={row.id}>
-                                            <th>{row.id}</th>
-                                            <td><img class="img-30 me-2" src={require(`../../assets/images/avatar/${row.id}.jpg`)} alt="profile" />{row.SalonName}</td>
-                                            <td>{row.location}</td>
-                                            <center><td>{row.HairdresserNumber}</td></center>
-                                            <td>
-                                            <div style={{fontSize:'50px',color:'pink', display:'flex', justifyContent:'center',marginRight:'40px'}}>
-                                                    <span style={{margin:2}}>.</span>
-                                                    <span style={{margin:2}}>.</span>
-                                                    <span style={{margin:2}}>.</span>
-                                                </div>
-                                            </td>
-                                            <td> <span class={statusClassName[row.status]}>{row.status}</span></td>
-                                            <td>
-                                                {/* <div class="text-center col-12 col-sm-6 col-md-12"> */}
-                                                <button class="btn m-1 btn-info btn-outline-info" type="button" data-bs-toggle="tooltip" title="btn btn-outline-info">Edit</button>
-                                                {/* </div> */}
-                                                <button class="btn m-1 btn-info btn-outline-info" type="button" data-bs-toggle="tooltip" title="btn btn-outline-info">Delete</button>
-                                                {/* </div> */}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+    const handleSearch = (event) => {
+        const term = event.target.value.toLowerCase();
+        setSearchTerm(term);
+        const filteredList = Data.filter(user => 
+            user.SalonName.toLowerCase().includes(term) || 
+            user.location.toLowerCase().includes(term)
+        );
+        setUserList(filteredList);
+    };
+
+    const openModal = (hairdresser) => {
+        setSelectedHairdresser(hairdresser);
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+        setSelectedHairdresser(null);
+    };
+
+    const openModal2 = () => {
+        setModalOpen2(true);
+    };
+
+    const closeModal2 = () => {
+        setModalOpen2(false);
+    };
+    return (
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+            <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px' }}>SalonAdmin</h3>
+            
+            <div style={{ marginBottom: '16px', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+                <input
+                    type="text"
+                    placeholder="Search salons or users..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', marginBottom: '8px' }}
+                />
+                <div>
+                    <button onClick={() => openModal2(true)} style={{ backgroundColor: '#3B82F6', color: 'white', padding: '8px 16px', borderRadius: '4px', marginLeft: '1100px' }}>Add users</button>
+                </div>
+                {isModalOpen2 && (
+            <div style={{marginTop: '16px', backgroundColor:'palegoldenrod', borderRadradius:'4px', cursor: 'pointer'}}>
+            <h2>Add user</h2>
+            <form>
+            <label>User Name</label>
+            <input type="text"></input>
+            <label>Email</label>
+            <input type="email"></input>
+            <button>Add</button>
+            <button onClick={closeModal2}>Delete</button>
+            </form>
+            </div>
+            )
+            }
+            </div>
+
+            <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead style={{ backgroundColor: '#F3F4F6' }}>
+                        <tr>
+                            <th style={{ padding: '12px', textAlign: 'left' }}>Id</th>
+                            <th style={{ padding: '12px', textAlign: 'left' }}>SalonName</th>
+                            <th style={{ padding: '12px', textAlign: 'left' }}>Location</th>
+                            <th style={{ padding: '12px', textAlign: 'left' }}>HairdresserNumber</th>
+                            <th style={{ padding: '12px', textAlign: 'left' }}>HairdresserDetail</th>
+                            <th style={{ padding: '12px', textAlign: 'left' }}>Status</th>
+                            <th style={{ padding: '12px', textAlign: 'left' }}>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userList.map((row) => (
+                            <tr key={row.id} style={{ borderBottom: '1px solid #E5E7EB' }}>
+                                <td style={{ padding: '12px' }}>{row.id}</td>
+                                <td style={{ padding: '12px' }}>{row.SalonName}</td>
+                                <td style={{ padding: '12px' }}>{row.location}</td>
+                                <td style={{ padding: '12px', textAlign: 'center' }}>{row.HairdresserNumber}</td>
+                                <td style={{ padding: '12px' }}>
+                                    <button onClick={() => openModal(row)} style={{ color: '#3B82F6', fontWeight: 'bold', border:'none' }}>
+                                        ...
+                                    </button>
+                                </td>
+                                <td style={{ padding: '12px' }}>
+                                    <span style={{
+                                        ...statusStyles[row.status],
+                                        padding: '4px 8px',
+                                        borderRadius: '9999px',
+                                        fontSize: '12px'
+                                    }}>
+                                        {row.status}
+                                    </span>
+                                </td>
+                                <td style={{ padding: '12px' }}>
+                                    <button style={{ backgroundColor: '#3B82F6', color: 'white', padding: '4px 8px', borderRadius: '4px', marginRight: '8px', fontSize: '14px' }}>Edit</button>
+                                    <button style={{ backgroundColor: 'pink', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '14px' }}>Delete</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {modalOpen && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <div style={{
+                        backgroundColor: 'white',
+                        padding: '20px',
+                        borderRadius: '8px',
+                        maxWidth: '400px',
+                        width: '100%'
+                    }}>
+                        <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '16px' }}>Hairdresser Details</h2>
+                        {selectedHairdresser && (
+                            <div>
+                                <p>Salon Name: {selectedHairdresser.SalonName}</p>
+                                <p>Location: {selectedHairdresser.location}</p>
+                                <p>Hairdresser Number: {selectedHairdresser.HairdresserNumber}</p>
+                                <p>Hairdresser Detail: {selectedHairdresser.HairdresserDetail}</p>
+                                <p>Status: {selectedHairdresser.status}</p>
+                            </div>
+                        )}
+                        <button 
+                            onClick={closeModal}
+                            style={{
+                                marginTop: '16px',
+                                backgroundColor: '#3B82F6',
+                                color: 'white',
+                                padding: '8px 16px',
+                                borderRadius: '4px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Close
+                        </button>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
-    )
+    );
 }
