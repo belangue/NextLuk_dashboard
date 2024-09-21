@@ -15,11 +15,13 @@ import "./assets/css/vendors/animate.css/animate.css"
 import "./assets/css/vendors/weather-icons/css/weather-icons.min.css"
 import "./assets/css/style.css"
 import 'react-datepicker/dist/react-datepicker.css';
-
+import { ToastContainer } from 'react-toastify';
+import'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <ToastContainer />
     <App />
 
   </React.StrictMode>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { Dropdown, Modal, Ripple, initMDB } from "mdb-ui-kit";
+import { useLoaderData } from 'react-router-dom';
+import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle } from 'mdb-react-ui-kit';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import { toast } from 'react-toastify';
 
-initMDB({ Dropdown, Modal, Ripple });
 const Data = [
     { id: 1, firstName: 'John', lastName: 'Doe', email: 'johndoe@example.com', accountType: 'Admin', status: 'Pending' },
     { id: 2, firstName: 'Jane', lastName: 'Smith', email: 'janesmith@example.com', accountType: 'Hairdresser', status: 'Inactive' },
@@ -16,14 +18,20 @@ const Data = [
     // Add more data rows as needed
 ];
 const statusClassName = {
-    "Inactive": "badge badge-light-danger",
-    "Suspended": "badge badge-light-primary",
-    "Active": "badge badge-light-success",
-    "Pending": "badge badge-light-info",
+    "Suspended": "badge badge-light-danger",
+    "Active": "badge badge-light-info",
+}
+const actionAPI = {
+    "Suspended": "/changeStatus",
+    "Active": "/changeStatus",
+    "Deleted": "/delete"
 }
 export default function User() {
-    const [userList, setUserList] = useState(Data);
+    const loaderData = useLoaderData()
+    console.log(loaderData);
+    const [userList, setUserList] = useState(loaderData.users);
     const [isOpen, setIsOpen] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
     const [newUser, setNewUser] = useState({
         firstName: "",
         lastName: "",
@@ -36,11 +44,36 @@ export default function User() {
     const closeModal = () => {
         setIsOpen(false)
     }
+    console.log(userList);
 
-    const handleStatusChange = (userId, newStatus) => {
-        setUserList(prevList => prevList.map(user =>
-            user.id === userId ? { ...user, status: newStatus } : user
-        ));
+    const filiterUser = userList.filter(user => (
+        user.email.toLocaleLowerCase().includes(searchTerm) ||
+        user.username.toLocaleLowerCase().includes(searchTerm)
+    ))
+    const fetchUsersData = async () => {
+        await fetch(`${process.env.REACT_APP_DEV_URL}/user/getAllUsers`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'access-control': '*',
+                'authorization': 'Bearer ' + localStorage.getItem('nextluk_token'),
+
+            },
+        })
+            .then(res => res.json())
+            .then(async response => {
+                console.log(response);
+                if (response.users) {
+                    setUserList(response.users)
+                }
+                toast.error(response.error);
+
+            })
+            .catch(async err => {
+                console.log(err);
+                toast.success("Logout Success");
+            });
     };
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -58,53 +91,67 @@ export default function User() {
         setUserList(prevList => [...prevList, createdUser]);
         closeModal();
     };
-    const handleAction = (action, userId) => {
-        setUserList(prevList => prevList.map(user => {
-            if (user.id === userId) {
-                switch (action) {
-                    case 'delete':
-                        return null;
-                    case 'suspend':
-                        return { ...user, status: 'Suspended' };
-                    case 'activate':
-                        return { ...user, status: 'Active' };
-                    default:
-                        return user;
+    const handleAction = async (action, userId) => {
+        await fetch(`${process.env.REACT_APP_DEV_URL}/user/${actionAPI[action]}/${userId}`, {
+            method: action === 'Deleted' ? 'delete' : 'Put',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'access-control': '*',
+                'authorization': 'Bearer ' + localStorage.getItem('nextluk_token'),
+            },
+            body: JSON.stringify({
+                status: action
+            }),
+        })
+            .then(res => res.json())
+            .then(async response => {
+                console.log(response);
+                if (response.message) {
+                    toast.success(response.message);
+                    fetchUsersData();
                 }
-            }
-            return user;
-        }).filter(Boolean));
+                toast.error(response.error);
+
+            })
+            .catch(async err => {
+                console.log(err);
+                toast.success("Logout Success");
+            });
     };
 
     return (
         <div>
-            <div class="container-fluid">
-                <div class="row page-title">
-                    <div class="col-sm-6">
+            <div className="container-fluid">
+                <div className="row page-title">
+                    <div className="col-sm-6">
                         <h3>Users</h3>
                     </div>
                 </div>
             </div>
-            <div class="container-fluid">
-                <div class="card">
-                    <div class="card-header d-md-block">
-                        <div class="d-md-flex d-sm-block align-items-center">
-                            <form class="search-form mb-0">
-                                <div class="input-group"><span class="input-group-text pe-0">
+            <div className="container-fluid">
+                <div className="card">
+                    <div className="card-header d-md-block">
+                        <div className="d-md-flex d-sm-block align-items-center">
+                            <form className="search-form mb-0">
+                                <div className="input-group"><span className="input-group-text pe-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" color='pink' viewBox="0 0 24 24" fill="black"
                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-search">
+                                        className="feather feather-search">
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
-                                    <input class="form-control" type="text" placeholder="Search anything..." />
+                                    <input className="form-control" type="text" placeholder="Search anything..."
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value.toLocaleLowerCase())}
+                                    />
                                 </div>
                             </form>
-                            <div class="flex-grow-1 text-end">
-                                <form class="d-inline-flex">
-                                    <button onClick={openModal} type="button" class="btn btn-primary" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">
+                            <div className="flex-grow-1 text-end">
+                                <form className="d-inline-flex">
+                                    <button onClick={openModal} type="button" className="btn btn-primary" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-plus-square">
+                                            className="feather feather-plus-square">
                                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                             <line x1="12" y1="8" x2="12" y2="16"></line>
                                             <line x1="8" y1="12" x2="16" y2="12"></line>
@@ -113,19 +160,19 @@ export default function User() {
                                         Add user
                                     </button>
                                     {isOpen && (
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                                        <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+                                        <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                        <button type="button" className="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <div class="modal-body">...
+                                                    <div className="modal-body">...
 
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" data-mdb-ripple-init>Save changes</button>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-primary" data-mdb-ripple-init>Save changes</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,14 +183,13 @@ export default function User() {
                         </div>
 
                     </div >
-                    <div class="card-body file-manager">
-                        <div class="table-responsive">
-                            <table class="table">
+                    <div className="card-body file-manager">
+                        <div className="table-responsive">
+                            <table className="table">
                                 <thead>
-                                    <tr class="b-b-jojo">
+                                    <tr className="b-b-jojo">
                                         <th scope="col">Id</th>
-                                        <th scope="col">First Name</th>
-                                        <th scope="col">Last Name</th>
+                                        <th scope="col">User Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">AccountType</th>
                                         <th scope="col">Status</th>
@@ -151,33 +197,27 @@ export default function User() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {userList.map((row) => (
-                                        <tr className='b-b-jojo' key={row.id}>
-                                            <th>{row.id}</th>
-                                            <td><img class="img-30 me-2" src={require(`../../assets/images/avatar/${row.id}.jpg`)} alt="profile" />{row.firstName}</td>
-                                            <td>{row.lastName}</td>
-                                            <td>{row.email}</td>
-                                            <td>{row.accountType}</td>
-                                            <td> <span class={statusClassName[row.status]}>{row.status}</span></td>
+                                    {filiterUser.map((row) => (
+                                        <tr className='b-b-jojo' key={row.userId}>
+                                            <th>{row.userId}</th>
                                             <td>
-                                                <div className="dropdown">
-                                                    <button
-                                                        className="btn btn-primary dropdown-toggle"
-                                                        type="button"
-                                                        id={`dropdownMenuButton-${row.id}`}
-                                                        data-mdb-dropdown-init
-                                                        data-mdb-ripple-init
-                                                        aria-expanded="false"
-                                                    >
-                                                        Change
-                                                    </button>
-                                                    <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton-${row.id}`}>
-                                                        <li><a className="dropdown-item" href="#" onClick={() => handleStatusChange(row.id, 'Active')}>Active</a></li>
-                                                        <li><a className="dropdown-item" href="#" onClick={() => handleStatusChange(row.id, 'Inactive')}>Inactive</a></li>
-                                                        <li><a className="dropdown-item" href="#" onClick={() => handleStatusChange(row.id, 'Suspended')}>Suspended</a></li>
-                                                        <li><a className="dropdown-item" href="#" onClick={() => handleStatusChange(row.id, 'Pending')}>Pending</a></li>
-                                                    </ul>
-                                                </div>
+                                                {/* <img className="img-30 me-2" src={require(`../../assets/images/avatar/${row.id}.jpg`)}
+                                                 alt="profile" /> */}
+                                                {row.username}</td>
+                                            <td>{row.email}</td>
+                                            <td>{row.userType}</td>
+                                            <td> <span className={statusClassName[row.status]}>{row.status}</span></td>
+                                            <td>
+                                                <MDBDropdown>
+                                                    <MDBDropdownToggle>
+                                                        Action
+                                                    </MDBDropdownToggle>
+                                                    <MDBDropdownMenu right>
+                                                        <MDBDropdownItem link onClick={() => handleAction('Deleted', row.userId)}>Delete</MDBDropdownItem>
+                                                        <MDBDropdownItem link onClick={() => handleAction('Suspended', row.userId)}>Suspend</MDBDropdownItem>
+                                                        <MDBDropdownItem link onClick={() => handleAction('Active', row.userId)}>Activate</MDBDropdownItem>
+                                                    </MDBDropdownMenu>
+                                                </MDBDropdown>
                                             </td>
                                         </tr>
                                     ))}
@@ -244,4 +284,20 @@ export default function User() {
             )}
         </div >
     )
+}
+
+export const getAllUsers = async ({ params }) => {
+    let response = await fetch(`${process.env.REACT_APP_DEV_URL}/user/getAllUsers`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'accept': 'application/json',
+            'access-control': '*',
+            'authorization': 'Bearer ' + localStorage.getItem('nextluk_token'),
+        },
+    })
+    if (!response.ok) {
+        throw ('An error occurred');
+    }
+    return await response.json();
 }

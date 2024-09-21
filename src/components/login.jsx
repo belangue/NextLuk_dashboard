@@ -116,7 +116,7 @@
 //                                         <div className="login-social-title">
 //                                             <h6>Or Sign in with </h6>
 //                                         </div>
-                                        
+
 //                                         <p className="mt-4 mb-0 text-center">Don't have account?<a className="ms-2" href="/Signup">Create
 //                                             Account</a></p>
 //                                     </form>
@@ -151,103 +151,106 @@
 
 import React, { useState } from 'react';
 import { useNavigate, useLoaderData } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate();
-    const User = useLoaderData();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [respond, setRespond] = useState('');
-    const [success, setSuccess] = useState('');
+    const navigate = useNavigate()
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+    });
+
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
     };
+    const handleSubmit = async () => {
+        await fetch(`${process.env.REACT_APP_DEV_URL}/user/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'access-control': '*'
+            },
+            body: JSON.stringify(data),
+        })
+            .then(res => res.json())
+            .then(async response => {
+                console.log(response);
+                if (response.message) {
+                    toast.success(response.message);
+                    await localStorage.setItem('nextluk_token', response.token);
+                    setTimeout(() => {
+                        if (response.userType === 'Hairdresser' || response.userType === 'Admin') {
+                            navigate("/dashboard");
+                        } else {
+                            navigate("/FirstPage");
 
-    async function submit(e) {
-        e.preventDefault();
-
-        if (email === '' || password === '') {
-            setError('Please fill in all fields');
-            return;
-        }
-
-        setError('');
-        setRespond('');
-        setSuccess('');
-        setLoading(true);
-
-        try {
-            const response = await fetch('https://{{bk_url}}/api/user/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Origin': window.location.origin, // Add this line
-                },
-                body: JSON.stringify({ email, password }),
-                credentials: 'include', // Add this line
+                        }
+                    }, 1500);
+                }
+                toast.error(response.error);
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error("An error occurred");
             });
 
-            const data = await response.json();
-            console.log('Response:', response);
-            console.log('Data:', data);
 
-            if (response.ok) {
-                if (data.token) {
-                    setSuccess(data.message || 'Login successful');
-                    localStorage.setItem('token', data.token);
-                    navigate("/dashboard/salon");
-                } else {
-                    setRespond(data.message || 'Login successful, but no token received');
-                }
-            } else {
-                setError(data.message || 'Login failed');
-            }
-        } catch (e) {
-            console.error('Login error:', e);
-            setError("An error occurred. Please try again later.");
-        } finally {
-            setLoading(false);
-        }
     }
-
     return (
-        <div className="login-card login-dark">
-            <div className="login-main">
-                <form className="theme-form" onSubmit={submit}>
-                    {/* Form content remains the same */}
-                </form>
+        <div>
+            <div className="container-fluid p-0">
+                <div className="row m-0">
+                    <div className="col-12 p-0">
+                        <div className="login-card login-dark">
+                            <div>
+                                <div>
+                                    <div>
+                                        <a className="logo" href="index.html">
+                                            <img style={{ width: '50px', height: '50px' }} className="img-fluid for-light" src={require("../assets/images/logo/logo.jpg")}
+                                                alt="looginpage" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="login-main">
+                                    <div className="theme-form">
+                                        <h2 className="text-center">Login to  your account</h2>
+                                        <p className="text-center">Enter email and password</p>
+                                        <div className="form-group">
+                                            <label className="col-form-label">Email Address</label>
+                                            <input className="form-control" type="email" required="" placeholder="Test@gmail.com"
+                                                value={data.email}
+                                                onChange={(e) => setData({ ...data, email: e.target.value })} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="col-form-label">Password</label>
+                                            <div className="form-input position-relative">
+                                                <input className="form-control"
+                                                    type={showPassword
+                                                        ? "text" : "password"}
+                                                    name="login[password]" required=""
+                                                    placeholder="*********"
+                                                    value={data.password}
+                                                    onChange={(e) => setData({ ...data, password: e.target.value })} />
+                                                <div className="show-hide" onClick={handleShowPassword}>
+                                                    <span className="">{showPassword ? 'Hide' : 'Show'}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button className="btn btn-primary btn-block w-100 mt-3" type="submit"
+                                            onClick={handleSubmit}
+                                        >Login</button>
+                                    </div>
+                                    <p className="mt-4 mb-0 text-center">Create an account?<a className="ms-2" href="/signup">Sign up</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
 }
-
-export const loginLoader = async ({ request }) => {
-    const token = localStorage.getItem('token');
-    try {
-        const res = await fetch('https://{{bk_url}}/api/user/getAllUsers', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`,
-                'Origin': window.location.origin,
-            },
-            credentials: 'include',
-        });
-
-        if (!res.ok) {
-            throw new Error('Authentication failed');
-        }
-
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        console.error('Login loader error:', error);
-        return null;
-    }
-};

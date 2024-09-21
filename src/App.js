@@ -10,7 +10,7 @@ import Dashboard from './components/dashboard';
 import Activites_List from './components/Dashboard/Activites_List';
 import Loader from './components/loader';
 import React, { Suspense } from 'react';
-import User from './components/Dashboard/User';
+import User, { getAllUsers } from './components/Dashboard/User';
 import Salonadmin from './components/Dashboard/salonadmin';
 import Publication from './components/Dashboard/Publication';
 import Salon from './components/Dashboard/salon';
@@ -81,12 +81,12 @@ const router = createBrowserRouter(
           />
           <Route path='displayweb'
             element={<displayWeb />}
-          // loader={getElectionResult}
+            // loader={getAllUsers}
           // errorElement={<ErrorPage />}
           />
           <Route path='user'
             element={<User />}
-          // loader={getElectionResult}
+            loader={getAllUsers}
           // errorElement={<ErrorPage />}
           />
         </Route>
@@ -106,7 +106,7 @@ const router = createBrowserRouter(
         // loader={signupLoader}
         // errorElement={<ErrorPage />}
         />
-         <Route path='Institute'
+        <Route path='Institute'
           element={
             <Suspense fallback={<Loader />}>
               <Institute />
@@ -114,7 +114,7 @@ const router = createBrowserRouter(
         // loader={signupLoader}
         // errorElement={<ErrorPage />}
         />
-         <Route path='HomePage'
+        <Route path='HomePage'
           element={
             <Suspense fallback={<Loader />}>
               <HomePage />
@@ -138,7 +138,7 @@ const router = createBrowserRouter(
         // loader={signupLoader}
         // errorElement={<ErrorPage />}
         />
-         <Route path='FirstPage'
+        <Route path='FirstPage'
           element={
             <Suspense fallback={<Loader />}>
               <FirstPage />
@@ -168,7 +168,7 @@ const router = createBrowserRouter(
             </Suspense>
           }
         />
-          <Route path='Map'
+        <Route path='Map'
           element={
             <Suspense fallback={<Loader />}>
               <Map />

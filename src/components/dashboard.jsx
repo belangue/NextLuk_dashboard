@@ -9,59 +9,59 @@ export default function Dashboard() {
     };
     return (
         <div>
-            <main class="page-wrapper compact-wrapper" id="pageWrapper">
-                <header class="page-header row">
-                    <div class="logo-wrapper d-flex align-items-center col-auto">
-                        <a href="#"><img class="for-light"
+            <main className="page-wrapper compact-wrapper" id="pageWrapper">
+                <header className="page-header row">
+                    <div className="logo-wrapper d-flex align-items-center col-auto">
+                        <a href="#"><img className="for-light"
                             src={require("../assets/images/logo/logo.jpg")} alt="logo" style={{ width: '50px', height: '40px' }} />
                         </a>
                         <h1 style={{ color: 'pink', fontStyle: 'italic' }}>NextLuk</h1>
-                        <a class="close-btn" onClick={toggleSidebar} >
-                            <div class="toggle-sidebar">
-                                <div class="line"></div>
-                                <div class="line"></div>
-                                <div class="line"></div>
+                        <a className="close-btn" onClick={toggleSidebar} >
+                            <div className="toggle-sidebar">
+                                <div className="line"></div>
+                                <div className="line"></div>
+                                <div className="line"></div>
                             </div>
                         </a>
                     </div>
-                    <div class="page-main-header col">
-                        <div class="header-left d-lg-block d-none">
-                            <form class="search-form mb-0">
-                                <div class="input-group"><span class="input-group-text pe-0">
-                                    <svg class="search-bg svg-color">
+                    <div className="page-main-header col">
+                        <div className="header-left d-lg-block d-none">
+                            <form className="search-form mb-0">
+                                <div className="input-group"><span className="input-group-text pe-0">
+                                    <svg className="search-bg svg-color">
                                         <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Search"></use>
                                     </svg></span>
-                                    <input class="form-control" type="text" placeholder="Search anything..." />
+                                    <input className="form-control" type="text" placeholder="Search anything..." />
                                 </div>
                             </form>
                         </div>
-                        <div class="nav-right">
+                        <div className="nav-right">
                         </div>
                     </div>
                 </header>
 
                 {/* <!-- Page header end--> */}
-                <div class="page-body-wrapper">
+                <div className="page-body-wrapper">
                     {/* <!-- Page sidebar start--> */}
-                    <div class="overlay"></div>
+                    <div className="overlay"></div>
                     {isSidebarOpen ? (
                         <></>
                     ) : (
-                        <aside class="page-sidebar" data-sidebar-layout="stroke-svg">
+                        <aside className="page-sidebar" data-sidebar-layout="stroke-svg">
                             <div id="sidebar-menu">
-                                <ul class="sidebar-menu" id="simple-bar">
-                                    <li class="pin-title sidebar-list p-0">
-                                        <h5 class="sidebar-main-title">Pinned</h5>
+                                <ul className="sidebar-menu" id="simple-bar">
+                                    <li className="pin-title sidebar-list p-0">
+                                        <h5 className="sidebar-main-title">Pinned</h5>
                                     </li>
-                                    <li class="line pin-line"></li>
-                                    {/* <li class="sidebar-main-title">General</li> */}
-                                    <li class="sidebar-list">
+                                    <li className="line pin-line"></li>
+                                    {/* <li className="sidebar-main-title">General</li> */}
+                                    <li className="sidebar-list">
                                         <NavLink className="sidebar-link" to={"User"}>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                                 <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z" /></svg><span>User</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-user-x">
+                                                stroke-linejoin="round" className="feather feather-user-x">
                                                 <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                                 <circle cx="8.5" cy="7" r="4"></circle>
                                                 <line x1="18" y1="8" x2="23" y2="13"></line>
@@ -69,8 +69,8 @@ export default function Dashboard() {
                                             </svg>
                                         </NavLink>
                                     </li>
-                                    <li class="sidebar-list">
-                                        <svg class="pinned-icon">
+                                    <li className="sidebar-list">
+                                        <svg className="pinned-icon">
                                             <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Pin"></use>
                                         </svg><NavLink className="sidebar-link" to={"salonAdmin"}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -79,7 +79,7 @@ export default function Dashboard() {
 112 112s112-50.1 112-112c0-14.3-2.7-27.9-7.5-40.5L499.2 76.8c7.1-7.1 7.1-18.5 0-25.6c-28.3-28.3-74.1-28.3-102.4 
 0L256 192zm22.6 150.6L396.8 460.8c28.3 28.3 74.1 28.3 102.4 0c7.1-7.1 7.1-18.5 0-25.6L342.6 278.6l-64 64zM64 
 112a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm48 240a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg><span>salonAdmin</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-scissors">
+fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-scissors">
 <circle cx="6" cy="6" r="3"></circle>
 <circle cx="6" cy="18" r="3"></circle>
 <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
@@ -87,46 +87,46 @@ fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke
 <line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
                                         </NavLink>
                                     </li>
-                                    <li class="sidebar-list">
-                                        <svg class="pinned-icon">
+                                    <li className="sidebar-list">
+                                        <svg className="pinned-icon">
                                             <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Pin"></use>
                                         </svg><NavLink className="sidebar-link" to={"publication"}>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                 <path d="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" /></svg><span>Publication</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" class="feather feather-camera">
+                                                    stroke-linejoin="round" className="feather feather-camera">
                                                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
                                                 </path><circle cx="12" cy="13" r="4"></circle></svg>
                                         </NavLink>
                                     </li>
-                                    <li class="sidebar-list">
-                                        <svg class="pinned-icon">
+                                    <li className="sidebar-list">
+                                        <svg className="pinned-icon">
                                             <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Pin"></use>
                                         </svg><NavLink className="sidebar-link" to={"appointment"}>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                                 <path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l80 0 0 56-80 0 0-56zm0 104l80 0 0 64-80 0 0-64zm128 0l96 0 0 64-96 0 0-64zm144 0l80 0 0 64-80 0 0-64zm80-48l-80 0 0-56 80 0 0 56zm0 160l0 40c0 8.8-7.2 16-16 16l-64 0 0-56 80 0zm-128 0l0 56-96 0 0-56 96 0zm-144 0l0 56-64 0c-8.8 0-16-7.2-16-16l0-40 80 0zM272 248l-96 0 0-56 96 0 0 56z" /></svg><span>Appointment</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-calendar">
                                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                                 <line x1="3" y1="10" x2="21" y2="10"></line></svg>
                                         </NavLink>
                                     </li>
-                                    <li class="sidebar-list">
-                                        <svg class="pinned-icon">
+                                    <li className="sidebar-list">
+                                        <svg className="pinned-icon">
                                             <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Pin"></use>
                                         </svg><NavLink className="sidebar-link" to={"schedule"}>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                                 <path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l80 0 0 56-80 0 0-56zm0 104l80 0 0 64-80 0 0-64zm128 0l96 0 0 64-96 0 0-64zm144 0l80 0 0 64-80 0 0-64zm80-48l-80 0 0-56 80 0 0 56zm0 160l0 40c0 8.8-7.2 16-16 16l-64 0 0-56 80 0zm-128 0l0 56-96 0 0-56 96 0zm-144 0l0 56-64 0c-8.8 0-16-7.2-16-16l0-40 80 0zM272 248l-96 0 0-56 96 0 0 56z" /></svg><span>Schedule</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-calendar">
                                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                                 <line x1="3" y1="10" x2="21" y2="10"></line></svg>
                                         </NavLink>
                                     </li>
-                                    <li class="sidebar-list">
-                                        <svg class="pinned-icon">
+                                    <li className="sidebar-list">
+                                        <svg className="pinned-icon">
                                             <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Pin"></use>
                                         </svg><NavLink className="sidebar-link" to={"Salon"}>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -135,7 +135,7 @@ fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke
 112 112s112-50.1 112-112c0-14.3-2.7-27.9-7.5-40.5L499.2 76.8c7.1-7.1 7.1-18.5 0-25.6c-28.3-28.3-74.1-28.3-102.4 
 0L256 192zm22.6 150.6L396.8 460.8c28.3 28.3 74.1 28.3 102.4 0c7.1-7.1 7.1-18.5 0-25.6L342.6 278.6l-64 64zM64 
 112a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm48 240a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg><span>Salon</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-scissors">
+                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-scissors">
                                                 <circle cx="6" cy="6" r="3"></circle>
                                                 <circle cx="6" cy="18" r="3"></circle>
                                                 <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
@@ -143,8 +143,8 @@ fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke
                                                 <line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
                                         </NavLink>
                                     </li>
-                                    <li class="sidebar-list">
-                                        <svg class="pinned-icon">
+                                    <li className="sidebar-list">
+                                        <svg className="pinned-icon">
                                             <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Pin"></use>
                                         </svg><NavLink className="sidebar-link" to={"finance"}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"> <path d="M160 0c17.7 0 32 14.3 32 32l0 35.7c1.6 .2 3.1 .4 4.7 
@@ -158,13 +158,13 @@ fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke
    0C119.4 279.3 84.4 270 58.4 253c-14.2-9.3-27.5-22-35.8-39.6c-8.4-17.9-10.1-37.9-6.1-59.2C23.7
     116 52.3 91.2 84.8 78.3c13.3-5.3 27.9-8.9 43.2-11L128 32c0-17.7 14.3-32 32-32z"/></svg><span>Finance</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
-    stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign">
+    stroke-linecap="round" stroke-linejoin="round" className="feather feather-dollar-sign">
     <line x1="12" y1="1" x2="12" y2="23"></line>
     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                                         </NavLink>
                                     </li>
-                                    <li class="sidebar-list">
-                                        <svg class="pinned-icon">
+                                    <li className="sidebar-list">
+                                        <svg className="pinned-icon">
                                             <use href="https://admin.pixelstrap.net/edmin/assets/svg/iconly-sprite.svg#Pin"></use>
                                         </svg><NavLink className="sidebar-link" to={"setting"}>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -174,7 +174,7 @@ fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke
 0L256 192zm22.6 150.6L396.8 460.8c28.3 28.3 74.1 28.3 102.4 0c7.1-7.1 7.1-18.5 0-25.6L342.6 278.6l-64 64zM64 
 112a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm48 240a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg><span>Settings</span><svg xmlns="http://www.w3.org/2000/svg" width="24"
 height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
- stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
+ stroke-linecap="round" stroke-linejoin="round" className="feather feather-settings">
  <circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 
  2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1
   1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65
@@ -197,11 +197,11 @@ height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="
                     >
                         <Outlet />
                     </div>
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6 footer-copyright">
-                                    <p class="mb-0">Copyright 2024 © Nextluk Template by Ndongo Josepha.</p>
+                    <footer className="footer">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col-md-6 footer-copyright">
+                                    <p className="mb-0">Copyright 2024 © Nextluk Template by Ndongo Josepha.</p>
                                 </div>
                             </div>
                         </div>

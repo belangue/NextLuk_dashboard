@@ -14926,8 +14926,8 @@ ul li {
   color: #ffffff;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active:focus, .btn-primary.show {
-  background-color: #43B9B2;
-  border-color: #43B9B2;
+  background-color: pink;
+  border-color: pink;
   color: #ffffff;
 }
 .btn-primary:first-child:active {
@@ -41639,7 +41639,7 @@ html[data-theme=dark-sidebar] .page-sidebar {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background: url("../images/login/login_bg.jpg");
+  /* background: url("../images/login/login_bg.jpg"); */
   background-position: center;
   padding: 30px 12px;
 }

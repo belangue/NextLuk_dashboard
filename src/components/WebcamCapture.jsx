@@ -1,6 +1,7 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 import * as faceapi from 'face-api.js';
+import { IMAGES } from '../images/images';
 
 const hairstyles = [
   '/images/image11.jpg',
@@ -10,6 +11,45 @@ const hairstyles = [
 ];
 
 const WebcamCapture = () => {
+
+  const picture = useRef()
+  const [globalCoords, setGlobalCoords] = useState({ x: 0, y: 0 });
+  const [localCoords, setLocalCoords] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = event => {
+
+    picture.current.style.left = `${event.clientX - 800}px`     // 👇️ Get the mouse position relative to the element
+    picture.current.style.top = `${event.clientY -200}px`     // 👇️ Get the mouse position relative to the element
+    setLocalCoords({
+      x: event.clientX - event.target.offsetLeft - 500,
+      y: event.clientY - event.target.offsetTop -500,
+    });
+
+    console.log(localCoords);
+
+  };
+
+  useEffect(() => {
+    const handleGlobalMouseMove = event => {
+      setGlobalCoords({
+        x: event.clientX,
+        y: event.clientY,
+      });
+    };
+    window.addEventListener('mousemove', handleGlobalMouseMove);
+
+    return () => {
+      window.removeEventListener(
+        'mousemove',
+        handleGlobalMouseMove,
+      );
+    };
+  }, []);
+
+
+
+
+
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
@@ -76,9 +116,9 @@ const WebcamCapture = () => {
         }
 
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
-        
+
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-        
+
         resizedDetections.forEach(detection => {
           const landmarks = detection.landmarks;
           const jawOutline = landmarks.getJawOutline();
@@ -148,12 +188,37 @@ const WebcamCapture = () => {
 
   return (
     <div>
-      <div style={{ position: 'relative', width: '500px', height: '500px', margin: 'auto' }}>
+      <div   style={{ position: 'relative', width: '500px', height: '500px', margin: 'auto' }}>
+        <div
+          ref={picture}
+         
+          className="" 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+          onMouseMove={handleMouseMove}
+          >
+          <img ref={picture} src={IMAGES.lorem} className='ty-5' alt="" width={200} style={{
+            // transform:[]
+            zIndex: 1000
+          }} />
+        </div>
         <Webcam
+          mirrored
+          type=''
           audio={false}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           onPlay={handleVideoOnPlay}
+        
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
         <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} />
