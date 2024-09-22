@@ -4,19 +4,6 @@ import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle } from
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import { toast } from 'react-toastify';
 
-const Data = [
-    { id: 1, firstName: 'John', lastName: 'Doe', email: 'johndoe@example.com', accountType: 'Admin', status: 'Pending' },
-    { id: 2, firstName: 'Jane', lastName: 'Smith', email: 'janesmith@example.com', accountType: 'Hairdresser', status: 'Inactive' },
-    { id: 3, firstName: 'Fina', lastName: 'dora', email: 'fina@gmail.com', accountType: 'Hairdresser', status: 'Suspended' },
-    { id: 4, firstName: 'John', lastName: 'Doe', email: 'johndoe@example.com', accountType: 'Admin', status: 'Active' },
-    { id: 5, firstName: 'William', lastName: 'Brown', email: 'williambrown@yahoo.com', accountType: 'Admin', status: 'Active' },
-    { id: 6, firstName: 'Olivia', lastName: 'Jones', email: 'oliviajones@corpmail.com', accountType: 'Hairdresser', status: 'Active' },
-    { id: 7, firstName: 'France', lastName: 'Wilson', email: 'wilson@company.net', accountType: 'Hairdresser', status: 'Inactive' },
-    { id: 8, firstName: 'Noah', lastName: 'Miller', email: 'noahmiller@gmail.com', accountType: 'Hairdresser', status: 'Active' },
-    { id: 9, firstName: 'Ava', lastName: 'Taylor', email: 'avataylor@outlook.com', accountType: 'Hairdresser', status: 'Inactive' },
-    { id: 10, firstName: 'Isabella', lastName: 'Moore', email: 'isabellamoor@yahoo.com', accountType: 'Hairdresser', status: 'Active' },
-    // Add more data rows as needed
-];
 const statusClassName = {
     "Suspended": "badge badge-light-danger",
     "Active": "badge badge-light-info",
