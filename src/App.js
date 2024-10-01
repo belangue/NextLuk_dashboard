@@ -11,16 +11,20 @@ import Activites_List from './components/Dashboard/Activites_List';
 import Loader from './components/loader';
 import React, { Suspense } from 'react';
 import User, { getAllUsers } from './components/Dashboard/User';
-import Salonadmin from './components/Dashboard/salonadmin';
-import Publication from './components/Dashboard/Publication';
+import Salonadmin, { getAllSalon } from './components/Dashboard/salonadmin';
+import Publication, { getAllPulicationBySalon } from './components/Dashboard/Publication';
 import Salon from './components/Dashboard/salon';
 import Chat from './components/Dashboard/chat';
 import Finance from './components/Dashboard/finance'
 import displayWeb from './components/Dashboard/displayWeb'
-import schedule from './components/Dashboard/schedule'
+import Schedule, { getAllAppoitment } from './components/Dashboard/schedule'
 import WebcamCapture from './components/WebcamCapture';
 import Map from './components/Map';
+import AboutUs from './components/AboutUs';
+import Footer from './components/Footer';
+import FAQ from './components/FAQ';
 import HomePage from './components/HomePage';
+import Web from './components/Web';
 const Login = React.lazy(() => import('./components/login'));
 const Signup = React.lazy(() => import('./components/signup'));
 const Home = React.lazy(() => import('./components/Home'));
@@ -44,12 +48,12 @@ const router = createBrowserRouter(
         >
           <Route path='salonAdmin'
             element={<Salonadmin />}
-          // loader={getElectionResult}
+          loader={getAllSalon}
           // errorElement={<ErrorPage />}
           />
           <Route path='schedule'
-            element={<schedule />}
-          // loader={getElectionResult}
+            element={<Schedule />}
+          loader={getAllAppoitment}
           // errorElement={<ErrorPage />}
           />
           <Route path='appointment'
@@ -61,7 +65,7 @@ const router = createBrowserRouter(
           />
           <Route path='publication'
             element={<Publication />}
-          // loader={getElectionResult}
+          loader={getAllPulicationBySalon}
           // errorElement={<ErrorPage />}
           />
           <Route path='salon'
@@ -75,7 +79,7 @@ const router = createBrowserRouter(
           // errorElement={<ErrorPage />}
           />
           <Route path='finance'
-            element={<finance />}
+            element={<Finance />}
           // loader={getElectionResult}
           // errorElement={<ErrorPage />}
           />
@@ -114,10 +118,11 @@ const router = createBrowserRouter(
         // loader={signupLoader}
         // errorElement={<ErrorPage />}
         />
-        <Route path='HomePage'
+        
+        <Route path='WebcamCapture'
           element={
             <Suspense fallback={<Loader />}>
-              <HomePage />
+              <WebcamCapture />
             </Suspense>}
         // loader={signupLoader}
         // errorElement={<ErrorPage />}
@@ -126,6 +131,22 @@ const router = createBrowserRouter(
           element={
             <Suspense fallback={<Loader />}>
               <Home />
+            </Suspense>}
+        // loader={signupLoader}
+        // errorElement={<ErrorPage />}
+        />
+        <Route path='HomePage'
+          element={
+            <Suspense fallback={<Loader />}>
+              <HomePage />
+            </Suspense>}
+        // loader={signupLoader}
+        // errorElement={<ErrorPage />}
+        />
+        <Route path='Web'
+          element={
+            <Suspense fallback={<Loader />}>
+              <Web />
             </Suspense>}
         // loader={signupLoader}
         // errorElement={<ErrorPage />}
@@ -161,17 +182,32 @@ const router = createBrowserRouter(
             </Suspense>
           }
         />
-        <Route path='WebcamCapture'
-          element={
-            <Suspense fallback={<Loader />}>
-              <WebcamCapture />
-            </Suspense>
-          }
-        />
+        
         <Route path='Map'
           element={
             <Suspense fallback={<Loader />}>
               <Map />
+            </Suspense>
+          }
+        />
+         <Route path='FAQ'
+          element={
+            <Suspense fallback={<Loader />}>
+              <FAQ />
+            </Suspense>
+          }
+        />
+         <Route path='AboutUs'
+          element={
+            <Suspense fallback={<Loader />}>
+              <AboutUs />
+            </Suspense>
+          }
+        />
+         <Route path='Footer'
+          element={
+            <Suspense fallback={<Loader />}>
+              <Footer />
             </Suspense>
           }
         />

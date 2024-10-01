@@ -67,16 +67,31 @@ export default function User() {
         setNewUser(prevState => ({ ...prevState, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newId = userList.length + 1;
-        const createdUser = {
-            id: newId,
-            ...newUser,
-            status: 'Pending'
-        };
-        setUserList(prevList => [...prevList, createdUser]);
-        closeModal();
+    const handleSubmit = async () => {
+        await fetch(`${process.env.REACT_APP_DEV_URL}/user/createUser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'access-control': '*',
+                'authorization': 'Bearer ' + localStorage.getItem('nextluk_token'),
+            },
+            body: JSON.stringify(newUser),
+        })
+            .then(res => res.json())
+            .then(async response => {
+                console.log(response);
+                if (response.message) {
+                    toast.success(response.message);
+                    fetchUsersData();
+                }
+                toast.error(response.error);
+
+            })
+            .catch(async err => {
+                console.log(err);
+                toast.success("Logout Success");
+            });
     };
     const handleAction = async (action, userId) => {
         await fetch(`${process.env.REACT_APP_DEV_URL}/user/${actionAPI[action]}/${userId}`, {
@@ -239,7 +254,7 @@ export default function User() {
                             <button type="button" className="btn-close" onClick={closeModal}></button>
                         </div>
                         <div className="modal-body">
-                            <form onSubmit={handleSubmit}>
+                            <div>
                                 <div className="mb-3">
                                     <label htmlFor="firstName" className="form-label">First Name</label>
                                     <input type="text" className="form-control" id="firstName" name="firstName" value={newUser.firstName} onChange={handleInputChange} required />
@@ -262,9 +277,9 @@ export default function User() {
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
-                                    <button type="submit" className="btn btn-primary">Add User</button>
+                                    <button type="button" className="btn btn-primary" onClick={handleSubmit}>Add User</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -286,5 +301,6 @@ export const getAllUsers = async ({ params }) => {
     if (!response.ok) {
         throw ('An error occurred');
     }
+    // return { users: [] };
     return await response.json();
 }

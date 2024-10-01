@@ -241,8 +241,202 @@ import React, { useState, useEffect } from 'react';
 import { MDBCarousel, MDBCarouselItem, MDBCarouselCaption, MDBRipple } from "mdb-react-ui-kit";
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { PlusCircle, Clock, CalendarCheck, Scissors, DollarSign } from 'lucide-react';
 import './FirstPage.css';
+import FAQ from './FAQ';
+import AboutUs from './AboutUs';
+import Footer from './Footer';
 import { toast } from 'react-toastify';
+
+const professionals = [
+  {
+    title: 'Hairdresser',
+    description: "Discover our hair experts for an exceptional hair transformation.",
+    image: require('../images/beauty3.jpg'),
+  },
+  {
+    title: 'Hairdresser',
+    description: "Discover our hair experts for an exceptional hair transformation.",
+    image: require('../images/beauty2.jpg'),
+  },
+  {
+    title: 'Hairdresser',
+    description: "Discover our hair experts for an exceptional hair transformation.",
+    image: require('../images/beauty1.jpg'),
+  },
+  {
+    title: 'Hairdresser',
+    description: "Discover our hair experts for an exceptional hair transformation.",
+    image: require('../images/beauty4.jpg'),
+  },
+];
+
+const SeeMoreComponent = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  return (
+    <div style={styles.container}>
+      <p style={styles.text}>
+        {!isExpanded && (
+          <span style={styles.seeMore} onClick={toggleExpanded}>
+            See More
+          </span>
+        )}
+      </p>
+      
+      {isExpanded && (
+        <div style={styles.extraContent}>
+          <p>Here is some more detailed information that you can now see!</p>
+          <button style={styles.seeLessBtn} onClick={toggleExpanded}>
+            See Less
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+const styles = {
+  container: {
+    padding: '10px',
+    fontFamily: 'Arial, sans-serif',
+  },
+  text: {
+    display: 'inline',
+  },
+  seeMore: {
+    color: 'blue',
+    cursor: 'pointer',
+    textDecoration: 'underline',
+  },
+  extraContent: {
+    marginTop: '10px',
+  },
+  seeLessBtn: {
+    backgroundColor: 'lightgray',
+    border: 'none',
+    padding: '5px 10px',
+    cursor: 'pointer',
+    borderRadius: '3px',
+  },
+};
+
+const ProfessionalCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % professionals.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + professionals.length) % professionals.length);
+  };
+
+  return (
+    <div className="professional-carousel">
+      <div className="image-container">
+        <img 
+          src={professionals[currentIndex].image} 
+          alt={professionals[currentIndex].title} 
+          className="carousel-image"
+        />
+      </div>
+      <div className="content-container">
+      <div>
+    <h2>Discover Our Professionals</h2>
+    <h3>{professionals[currentIndex].title}</h3>
+    <p>{professionals[currentIndex].description}</p>
+   <SeeMoreComponent/>
+</div>
+        <div className="navigation-container">
+          <button onClick={prevSlide} className="nav-button">
+            <ChevronLeft size={24} />
+          </button>
+          <button onClick={nextSlide} className="nav-button">
+            <ChevronRight size={24} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const StatBox = ({ title, description }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div 
+      className={`stat-box ${isHovered ? 'hovered' : ''}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="stat-content">
+        <h3 className="stat-title">{title}</h3>
+        <p className="stat-description">{description}</p>
+      </div>
+    </div>
+  );
+};
+
+const BeautyStatsGrid = () => {
+  return (
+    <div className="container">
+      <h1 className="main-title">STRONG GROWTH</h1>
+      <h2 className="sub-title">
+        Are you a beauty professional?<br />
+        Discover online booking!
+      </h2>
+      <div className="stats-grid">
+        <StatBox
+          title="+ 50%"
+          description="50% increase in online appointments"
+        />
+        <StatBox
+          title="4x"
+          description="4 times fewer missed appointments thanks to SMS reminders"
+        />
+        <StatBox
+          title="50%"
+          description="50% of online appointments booked outside of business hours"
+        />
+        <StatBox
+          title="+ 40,000"
+          description="Salons & institutes"
+        />
+        <StatBox
+          title="4 appointments"
+          description="Booked every second"
+        />
+        <StatBox
+          title="> €5 billion"
+          description="Worth of appointments booked"
+        />
+      </div>
+    </div>
+  );
+};
+
+const PlanityInterface = () => {
+  return (
+    <div className="planity-container1">
+      <div className="image-container1">
+        <img src={require('../images/beauty5.jpg')} alt="Team photo" className="team-photo" />
+      </div>
+      <div className="content-container1">
+        <h2 className="professional-tag">PROFESSIONAL</h2>
+        <p className="main-title1">
+          Nextluk is looking for professionals across Cameroon to digitalize the beauty industry
+        </p>
+        <p className="ceo-name">Ndongo Josepha - CEO</p>
+        <button className="discover-button">Discover our offers</button>
+      </div>
+    </div>
+  );
+};
 
 const App = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -252,7 +446,6 @@ const App = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
   return (
     <div className="app">
       <Header />
@@ -294,7 +487,7 @@ const Header = () => {
   }
   return (
     <header className="header-overlay">
-      <div className="logo">NextLuk</div>
+      <div className="logo"><a href="/FirstPage">Nextluk</a></div>
       <nav>
         <ul>
           <li><a href="/HomePage">Hairstyle</a></li>
@@ -302,13 +495,12 @@ const Header = () => {
         </ul>
       </nav>
       <div className="cta-buttons">
-        <button className="btn btn-outline">Ajoutez votre établissement</button>
         {localStorage.getItem('nextluk_token')  ? (
           <button className="btn btn-solid"
           onClick={handleLogout}
-          >Se deconnecter</button>
+          >SignUp</button>
         ) : (
-          <button className="btn btn-solid">Se connecter</button>
+          <button className="btn btn-solid">SignUp</button>
         )}
       </div>
     </header>
@@ -363,8 +555,8 @@ const Main = ({ screenWidth }) => {
             <MDBCarouselCaption>
               {/* <div style={{marginTop:"-400px"}}> */}
               <center style={{ border: 'solid 1px transparent', marginLeft: '200px' }}>
-                <h1 className='h1Carousel'>Welcome To Gorgeous braids by Carol</h1>
-                <h1 className='h1Carousel2'>Beauty at your service</h1>
+              <h1 className='h1Carousel' style={{color:'white'}}>Welcome To Our Application</h1>
+              <h1 className='h1Carousel2' style={{color:'white'}}>Beauty at your service</h1>
                 <p>
                   Our hair salons offers you a unique and personalized style that will make you shine
                   from the inside and give you confidence in yourself, while highlighting your natural beauty.
@@ -388,13 +580,13 @@ const Main = ({ screenWidth }) => {
           <MDBCarouselItem itemId={2}>
             <MDBRipple rippleTag='div' className='bg-image overlay hover-zoom hover-shadow'>
               <img
-                src={require('../images/images/photo2.jpg')}
+                src={require('../images/images/new7.jpg')}
                 className='d-block w-100'
                 alt='...'
                 style={{
                   opacity: '0.8 grey',
                   width: '100%',
-                  height: '1100px',
+                  height: '870px',
                 }}
               />
               <a href='#!' onClick={() => {
@@ -405,14 +597,14 @@ const Main = ({ screenWidth }) => {
                   color: 'white', backgroundColor: 'rgba(0,0,0,0.15)', height: 'fit-content',
                   fontWeight: 'lighter', top: '50%', left: '50%', width: '70%',
                   transform: 'translate(-50% ,-50%)', textAlign: 'center', fontSize: 'x-large'
-                }}>Welcome To Our Application<br /><span style={{ color: 'orange' }}>Beauty at your service</span></div>
+                }}>Welcome To Our Application<br /><span style={{ color: 'white' }}>Beauty at your service</span></div>
               </a>
             </MDBRipple>
             <MDBCarouselCaption>
               {/* <div style={{ textAlign: "right" }}> */}
               <center style={{ border: 'solid 1px transparent', marginRight: '200px', marginLeft: '-50px' }}>
-                <h1 className='h1Carousel'>Welcome To Gorgeous braids by Carol</h1>
-                <h1 className='h1Carousel2'>Beauty at your service</h1>
+              <h1 className='h1Carousel' style={{color:'white'}}>Welcome To Our Application</h1>
+              <h1 className='h1Carousel2' style={{color:'white'}}>Beauty at your service</h1>
                 <p>Reimagine Your Hair: Visualize Stunning Styles and Secure Your Appointment with Ease!
                 </p>
                 <div style={{
@@ -437,12 +629,13 @@ const Main = ({ screenWidth }) => {
           <MDBCarouselItem itemId={3}>
             <MDBRipple rippleTag='div' className='bg-image overlay hover-zoom hover-shadow' style={{ width: "100%", height: '10%' }}>
               <img
-                src={require('../images/images/photo3.jpg')}
+                src={require('../images/images/new8.jpg')}
                 className='d-block w-100'
                 alt='...'
                 style={{
                   opacity: '0.8 grey',
                   height: '100%',
+                  width: '100%',
                 }}
               />
               <a href='#!' onClick={() => {
@@ -459,8 +652,8 @@ const Main = ({ screenWidth }) => {
             <MDBCarouselCaption>
               <div style={{ textAlign: "left" }}>
                 {/* <center> */}
-                <h1 className='h1Carousel'>Welcome To Our Application</h1>
-                <h1 className='h1Carousel2'>Beauty at your service</h1>
+                <h1 className='h1Carousel' style={{color:'white'}}>Welcome To Our Application</h1>
+                <h1 className='h1Carousel2' style={{color:'white'}}>Beauty at your service</h1>
                 <p>Transform your look: Discover, Visualize, and Book your Perfect Hairstyle Today!
                 </p>
                 {/* <button
@@ -478,67 +671,21 @@ const Main = ({ screenWidth }) => {
             </MDBCarouselCaption>
           </MDBCarouselItem>
         </MDBCarousel>
+        <ProfessionalCarousel/>
+        <AboutUs/>
+        <BeautyStatsGrid/>
+        <PlanityInterface/>
+        <FAQ/>
         <Footer></Footer>
       </div>
     </main>
 
   );
 };
-const Footer = () => {
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="footer-section">
-          <h2 className="footer-logo">PLANITY</h2>
-          <div className="social-icons">
-            <a href="#" className="social-icon">f</a>
-            <a href="#" className="social-icon">○</a>
-          </div>
-        </div>
 
-        <div className="footer-section">
-          <h3>À propos de Planity</h3>
-          <ul>
-            <li>Ajoutez votre établissement</li>
-            <li>Rejoignez-nous</li>
-            <li>CGU</li>
-            <li>Planity Belgique</li>
-            <li>Planity België</li>
-            <li>Planity Deutschland</li>
-            <li>Politique de confidentialité</li>
-            <li>Politique de lutte contre les contenus illicites</li>
-            <li>Gestion des cookies</li>
-          </ul>
-        </div>
 
-        <div className="footer-section">
-          <h3>Trouvez votre prestation</h3>
-          <ul>
-            <li>Coiffeur</li>
-            <li>Institut de beauté</li>
-            <li>Barbier</li>
-            <li>Manucure et beauté des pieds</li>
-            <li>Spa</li>
-          </ul>
-        </div>
 
-        <div className="footer-section">
-          <h3>Recherches fréquentes</h3>
-          <ul>
-            <li>Coiffeur Paris</li>
-            <li>Coiffeur Bordeaux</li>
-            <li>Coiffeur Lyon</li>
-            <li>Coiffeur Toulouse</li>
-          </ul>
-        </div>
-      </div>
 
-      <div className="footer-bottom">
-        <p>Copyright © 2024 Planity</p>
-      </div>
-    </footer>
-  );
-};
 
 
 export default App;

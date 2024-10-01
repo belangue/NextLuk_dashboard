@@ -152,6 +152,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import './login.css'
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -201,7 +202,7 @@ export default function Login() {
     }
     return (
         <div>
-            <div className="container-fluid p-0">
+            <div className="container-fluid p-0 login-container" >
                 <div className="row m-0">
                     <div className="col-12 p-0">
                         <div className="login-card login-dark">

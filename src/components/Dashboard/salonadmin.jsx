@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu, MDBDropdownToggle } from 'mdb-react-ui-kit';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import { toast } from 'react-toastify';
 
 const statusClassName = {
-    "Suspended": "badge badge-light-danger",
-    "Active": "badge badge-light-info",
+    "suspended": "badge badge-light-danger",
+    "active": "badge badge-light-info",
 }
 const actionAPI = {
     "Suspended": "/changeStatus",
@@ -16,13 +16,17 @@ const actionAPI = {
 export default function Salon() {
     const loaderData = useLoaderData()
     console.log(loaderData);
-    const [salonList, setSalonList] = useState([]);
+    const [salonList, setSalonList] = useState(loaderData.salon);
     const [isOpen, setIsOpen] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
+    const [userList, setUserList] = useState([]);
+
     const [newSalon, setNewSalon] = useState({
-        SalonName:'',
-        Location:'',
-        HairdresserNumber:'',
+        name: "",
+        manager: "",
+        longitude: "",
+        latitude: "",
+        town: "YAOUNDE",
     });
     const openModal = () => {
         setIsOpen(!isOpen)
@@ -30,17 +34,14 @@ export default function Salon() {
     const closeModal = () => {
         setIsOpen(false)
     }
-    console.log(salonList);
-
-    const filiterUser = salonList.filter(salon => {
-        if (salon.locaion) {
-          return salon.locaion.toLocaleLowerCase().includes(searchTerm) ||
-                salon.salonName.toLocaleLowerCase().includes(searchTerm);
-        } else {
-          return salon.salonName.toLocaleLowerCase().includes(searchTerm);
+    useEffect(() => {
+        fetchUsersData()
+        return () => {
+            fetchUsersData()
         }
-      })
-    const fetchsalonData = async () => {
+    }, [])
+    console.log(salonList);
+    const fetchUsersData = async () => {
         await fetch(`${process.env.REACT_APP_DEV_URL}/user/getAllUsers`, {
             method: "GET",
             headers: {
@@ -55,6 +56,34 @@ export default function Salon() {
             .then(async response => {
                 console.log(response);
                 if (response.users) {
+                    setUserList(response.users)
+                }
+                toast.error(response.error);
+
+            })
+            .catch(async err => {
+                console.log(err);
+                toast.error("An error occur getting user data");
+            });
+    };
+    const filiterSalon = salonList.filter(salon => {
+        return salon.name.toLocaleLowerCase().includes(searchTerm);
+    })
+    const fetchsalonData = async () => {
+        await fetch(`${process.env.REACT_APP_DEV_URL}/salon/getAllSalon`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'access-control': '*',
+                'authorization': 'Bearer ' + localStorage.getItem('nextluk_token'),
+
+            },
+        })
+            .then(res => res.json())
+            .then(async response => {
+                console.log(response);
+                if (response.salon) {
                     setSalonList(response.salon)
                 }
                 toast.error(response.error);
@@ -62,27 +91,40 @@ export default function Salon() {
             })
             .catch(async err => {
                 console.log(err);
-                toast.success("Logout Success");
+                toast.error("An error occur getting salon data");
             });
     };
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewSalon(prevState => ({ ...prevState, [name]: value }));
-    };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newId = salonList.length + 1;
-        const createdSalon = {
-            id: newId,
-            ...newSalon,
-            status: 'Pending'
-        };
-        setSalonList(prevList => [...prevList, createdSalon]);
-        closeModal();
+    const handleSubmit = async () => {
+        // alert(JSON.stringify(newSalon))
+        await fetch(`${process.env.REACT_APP_DEV_URL}/salon/createSalon`, {
+            method: 'Post',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'access-control': '*',
+                'authorization': 'Bearer ' + localStorage.getItem('nextluk_token'),
+            },
+            body: JSON.stringify(newSalon),
+        })
+            .then(res => res.json())
+            .then(async response => {
+                console.log(response);
+                if (response.message) {
+                    toast.success(response.message);
+                    fetchsalonData();
+                    closeModal()
+                }
+                toast.error(response.error);
+
+            })
+            .catch(async err => {
+                console.log(err);
+                toast.error("An error occur");
+            });
     };
     const handleAction = async (action, salonId) => {
-        await fetch(`${process.env.REACT_APP_DEV_URL}/user/${actionAPI[action]}/${salonId}`, {
+        await fetch(`${process.env.REACT_APP_DEV_URL}/salon/${actionAPI[action]}/${salonId}`, {
             method: action === 'Deleted' ? 'delete' : 'Put',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,7 +148,7 @@ export default function Salon() {
             })
             .catch(async err => {
                 console.log(err);
-                toast.success("Logout Success");
+                toast.error("An error occur");
             });
     };
 
@@ -180,32 +222,32 @@ export default function Salon() {
                                     <tr className="b-b-jojo">
                                         <th scope="col">Id</th>
                                         <th scope="col">Salon Name</th>
-                                        <th scope="col">Location</th>
-                                        <th scope="col">Hairdressers number</th>
+                                        <th scope="col">Town</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filiterUser.map((row) => (
+                                    {filiterSalon.map((row) => (
                                         <tr className='b-b-jojo' key={row.salonId}>
                                             <th>{row.salonId}</th>
                                             <td>
                                                 {/* <img className="img-30 me-2" src={require(`../../assets/images/avatar/${row.id}.jpg`)}
                                                  alt="profile" /> */}
-                                                {row.salonName}</td>
-                                            <td>{row.Location}</td>
-                                            <td>{row.HairdresserNumber}</td>
+                                                {row.name}</td>
+                                            <td>{row.town}</td>
                                             <td> <span className={statusClassName[row.status]}>{row.status}</span></td>
+                                            {/* <td>{row.HairdresserNumber}</td>
+                                            <td> <span className={statusClassName[row.status]}>{row.status}</span></td> */}
                                             <td>
                                                 <MDBDropdown>
                                                     <MDBDropdownToggle>
                                                         Action
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu right>
-                                                        <MDBDropdownItem link onClick={() => handleAction('Deleted', row.userId)}>Delete</MDBDropdownItem>
-                                                        <MDBDropdownItem link onClick={() => handleAction('Suspended', row.userId)}>Suspend</MDBDropdownItem>
-                                                        <MDBDropdownItem link onClick={() => handleAction('Active', row.userId)}>Activate</MDBDropdownItem>
+                                                        <MDBDropdownItem link onClick={() => handleAction('Deleted', row.salonId)}>Delete</MDBDropdownItem>
+                                                        <MDBDropdownItem link onClick={() => handleAction('Suspended', row.salonId)}>Suspend</MDBDropdownItem>
+                                                        <MDBDropdownItem link onClick={() => handleAction('Active', row.salonId)}>Activate</MDBDropdownItem>
                                                     </MDBDropdownMenu>
                                                 </MDBDropdown>
                                             </td>
@@ -242,32 +284,81 @@ export default function Salon() {
                             <button type="button" className="btn-close" onClick={closeModal}></button>
                         </div>
                         <div className="modal-body">
-                            <form onSubmit={handleSubmit}>
+                            <div>
                                 <div className="mb-3">
                                     <label htmlFor="firstName" className="form-label">Salon Name</label>
-                                    <input type="text" className="form-control" id="firstName" name="firstName" value={newSalon.firstName} onChange={handleInputChange} required />
+                                    <input type="text" className="form-control" id="firstName"
+                                        placeholder='salon name'
+                                        name="firstName"
+                                        value={newSalon.name}
+                                        onChange={(e) => setNewSalon({ ...newSalon, name: e.target.value })}
+                                        required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="lastName" className="form-label">Location</label>
-                                    <input type="text" className="form-control" id="lastName" name="lastName" value={newSalon.lastName} onChange={handleInputChange} required />
+                                    <div className='row'>
+                                        <div className='col md-5'>
+                                            <input type="text" className="form-control" id="lastName"
+                                                placeholder='latitude'
+                                                name="lastName"
+                                                value={newSalon.latitude}
+                                                onChange={(e) => setNewSalon({ ...newSalon, latitude: e.target.value })}
+                                                required />
+                                        </div>
+                                        <div className='col md-5'>
+                                            <input type="text" className="form-control" id="lastName"
+                                                placeholder='longitude'
+                                                name="lastName"
+                                                value={newSalon.longitude}
+                                                onChange={(e) => setNewSalon({ ...newSalon, longitude: e.target.value })}
+                                                required />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="number" className="form-label">Hairdresser number</label>
-                                    <input type="number" className="form-control" id="number" name="number" value={newSalon.number} onChange={handleInputChange} required />
+                                    <div className='row'>
+                                        <div className='col md-5'>
+                                    <label htmlFor="town" className="form-label">Select town</label>
+                                        <select className="form-select" id="town"
+                                        name="town"
+                                        value={newSalon.town}
+                                        onChange={(e) => setNewSalon({ ...newSalon, town: e.target.value })}
+                                        required>
+                                        <option value="YAOUNDE">YAOUNDE</option>
+                                        <option value="DOUALA">DOUALA</option>
+                                    </select>
+                                        </div>
+                                        
+                                        <div className='col md-5'>
+                                        <label htmlFor="manager" className="form-label">Address</label>
+                                            <input type="text" className="form-control" id="lastName"
+                                                placeholder='Address'
+                                                name="address"
+                                                value={newSalon.address}
+                                                onChange={(e) => setNewSalon({ ...newSalon, address: e.target.value })}
+                                                required />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="accountType" className="form-label">Account Type</label>
-                                    <select className="form-select" id="accountType" name="accountType" value={setNewSalon.accountType} onChange={handleInputChange} required>
-                                        <option value="">Select account type</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Hairdresser">Hairdresser</option>
+                                    <label htmlFor="manager" className="form-label">Select Manager</label>
+                                    <select className="form-select" id="manager"
+                                        name="manager"
+                                        value={newSalon.manager}
+                                        onChange={(e) => setNewSalon({ ...newSalon, manager: e.target.value })}
+                                        required>
+                                        <option value="">Select manger</option>
+                                        {userList.map((item) => (
+                                            <option value={item.userId}>{item.username}</option>
+                                        ))}
+                                        
                                     </select>
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" onClick={closeModal}>Close</button>
-                                    <button type="submit" className="btn btn-primary">Add User</button>
+                                    <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Add User</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -277,7 +368,7 @@ export default function Salon() {
 }
 
 export const getAllSalon = async ({ params }) => {
-    let response = await fetch(`${process.env.REACT_APP_DEV_URL}/user/getAllSalon`, {
+    let response = await fetch(`${process.env.REACT_APP_DEV_URL}/salon/getAllSalon`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

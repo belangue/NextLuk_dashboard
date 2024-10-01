@@ -1,0 +1,68 @@
+.about-us-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .underline {
+    width: 50px;
+    height: 3px;
+    background-color: #0071ce;
+    margin: 0 auto 20px;
+  }
+  
+  .description {
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  
+  .info-boxes {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .info-box {
+    flex: 1;
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    padding: 130px;
+    color: white;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 70px;
+    margin-top: 80px;
+  }
+  
+  .our-business {
+    background-image: url('../images/image3.jpg');
+  background-color: black;
+  opacity: 0.5;
+  }
+  
+  .location-facts {
+    background-image: url('../images/image5.jpg');
+    background-color: #0071ce;
+  background-color: black;
+  opacity: 0.5;
+  }
+  
+  h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  @media (max-width: 768px) {
+    .info-boxes {
+      flex-direction: column;
+    }
+  }

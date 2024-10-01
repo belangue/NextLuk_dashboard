@@ -2,25 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './Institute.css';
+import ModelComponent from './Model';
+import Footer from './Footer';
 
 const HomePage = () => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedTown, setSelectedTown] = useState('');
     const [SelectedSalon, setSelectedSalon] = useState('');
+    const [basicModal, setBasicModal] = useState(false);
 
-   const hairsalon = [
-    {name: '', description:'',town: 'Yaounde',imageUrl:require('../images/city1.jpg') ,},
-    {name: '', description:'',town: 'Douala',imageUrl:require('../images/city2.jpg') ,},
-    {name: '', description:'',town: 'Ngaoundere',imageUrl:require('../images/city3.jpg') ,},
-   ]
+    const hairsalon = [
+        { name: '', description: '', town: 'Yaounde', imageUrl: require('../images/city1.jpg'), },
+        { name: '', description: '', town: 'Douala', imageUrl: require('../images/city2.jpg'), },
+        { name: '', description: '', town: 'Ngaoundere', imageUrl: require('../images/city3.jpg'), },
+    ]
 
     const handleImageClick = (hairsalon) => {
         const urlSearchParams = new URLSearchParams({
-            image: hairsalon.imageUrl,
-            name: hairsalon.name,
+            // image: hairsalon.imageUrl,
+            // name: hairsalon.name,
             town: hairsalon.town,
-            salon: hairsalon.salon,
+            // salon: hairsalon.salon,
         });
         window.location.href = `/InfoPageSalon?${urlSearchParams.toString()}`;
     };
@@ -32,7 +35,7 @@ const HomePage = () => {
         if (item === 'Hairstyle') {
             navigate('/HomePage');
         }
-        if (item === 'Hairstyle') {
+        if (item === 'Nextluk') {
             navigate('/FirstPage');
         }
     };
@@ -62,27 +65,27 @@ const HomePage = () => {
                     </ul>
                 </nav>
                 <div className="header-buttons">
-                    <button>Book now</button>
+                    <button onClick={() => { setBasicModal(!basicModal) }} >Book now</button>
                 </div>
             </header>
 
             <div className="main-content">
                 <h1>Reserve an appointment online for a haircut</h1>
-                
+
                 <div className="search-container">
                     <div className="search-input-wrapper">
                         <Search size={20} className="search-icon" />
-                        <input 
-                            type="text" 
-                            placeholder="What are you looking for?" 
+                        <input
+                            type="text"
+                            placeholder="What are you looking for?"
                             defaultValue="Hairstyle"
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
                     <div className="search-input-wrapper">
-                        <input 
-                            type="text" 
-                            placeholder="Address, town..." 
+                        <input
+                            type="text"
+                            placeholder="Address, town..."
                         />
                     </div>
                     <button>Search</button>
@@ -105,65 +108,14 @@ const HomePage = () => {
                             </div>
                         </div>
                     ))}
-                     <Footer></Footer>
-                </div>
-            </div>
+                     </div>
+                     </div>
+                    <ModelComponent
+                        basicModal={basicModal}
+                        setBasicModal={setBasicModal} />
+                    <Footer></Footer>
         </div>
     );
 };
-const Footer = () => {
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="footer-section">
-          <h2 className="footer-logo">PLANITY</h2>
-          <div className="social-icons">
-            <a href="#" className="social-icon">f</a>
-            <a href="#" className="social-icon">○</a>
-          </div>
-        </div>
-        
-        <div className="footer-section">
-          <h3>À propos de Planity</h3>
-          <ul>
-            <li>Ajoutez votre établissement</li>
-            <li>Rejoignez-nous</li>
-            <li>CGU</li>
-            <li>Planity Belgique</li>
-            <li>Planity België</li>
-            <li>Planity Deutschland</li>
-            <li>Politique de confidentialité</li>
-            <li>Politique de lutte contre les contenus illicites</li>
-            <li>Gestion des cookies</li>
-          </ul>
-        </div>
-        
-        <div className="footer-section">
-          <h3>Trouvez votre prestation</h3>
-          <ul>
-            <li>Coiffeur</li>
-            <li>Institut de beauté</li>
-            <li>Barbier</li>
-            <li>Manucure et beauté des pieds</li>
-            <li>Spa</li>
-          </ul>
-        </div>
-        
-        <div className="footer-section">
-          <h3>Recherches fréquentes</h3>
-          <ul>
-            <li>Coiffeur Paris</li>
-            <li>Coiffeur Bordeaux</li>
-            <li>Coiffeur Lyon</li>
-            <li>Coiffeur Toulouse</li>
-          </ul>
-        </div>
-      </div>
-      
-      <div className="footer-bottom">
-        <p>Copyright © 2024 Planity</p>
-      </div>
-    </footer>
-  );
-};
+
 export default HomePage;
